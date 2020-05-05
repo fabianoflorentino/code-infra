@@ -1,6 +1,6 @@
 ---
 
-- name: "Nova maquina virtual"
+- name: "Configurando SSH para os novos servidores virtuais"
   hosts:
     - servers
   gather_facts: False
@@ -10,7 +10,6 @@
        - '!all'
        - '!any'
        - 'network'
-       - 'virtual'
-
+       - 'virtual'    
   roles:
-    - {role: common, tags: "common"}
+    - {role: ssh, tags: "ssh"}

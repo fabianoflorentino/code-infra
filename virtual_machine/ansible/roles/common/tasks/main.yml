@@ -1,0 +1,40 @@
+---
+- name: Atualização do Sistema Operacional
+  package:
+    name: "*"
+    state: latest
+
+- name: Instalando Pacotes Padrão
+  package:
+    name: "{{ packages.to_install }}"
+    state: latest
+
+- name: Habilitando Serviços Padrão
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  loop: "{{ services.to_enable }}"
+
+- name: Desabilitando serviços não essenciais
+  systemd:
+    name: "{{ item }}"
+    state: stopped
+    enabled: false
+  loop: "{{ services.to_disable }}"
+
+- name: Desabilitando o SELinux
+  selinux:
+    state: disabled
+
+- name: Configurando o Serviço NTP
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    mode: 0644
+  notify: "Restart NTP service"
+
+- name: Atualizando o Hostname dos Servidores
+  hostname:
+    name: "{{ inventory_hostname }}"

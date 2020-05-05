@@ -1,0 +1,15 @@
+---
+
+- name: "Nova maquina virtual"
+  hosts:
+    - servers
+  gather_facts: False
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: common, tags: "common"}

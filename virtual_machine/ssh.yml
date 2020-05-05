@@ -1,8 +1,0 @@
----
-
-- name: "Configurando SSH para os novos servidores virtuais"
-  hosts:
-    - servers
-    
-  roles:
-    - {role: ssh, tags: "ssh"}
