@@ -1,58 +1,33 @@
 ---
-- name: "Remove old configuration of network"
-  file:
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - "/etc/sysconfig/network-scripts/ifcfg-ens33"
-    - "/etc/sysconfig/network-scripts/ifcfg-ens192"
-
-- name: "Configure the network"
-  template:
-    src: ifcfg-eth0.j2
-    dest: /etc/sysconfig/network-scripts/ifcfg-eth0
-    owner: root
-    group: root
-    mode: 0644
-
-- name: "Set PATH environment varible"
-  copy:
-    src: path.sh
-    dest: /etc/profile.d/path.sh
-    owner: root
-    group: root
-    mode: 0644
-
-- name: "Update System"
+- name: Atualização do Sistema Operacional
   package:
     name: "*"
     state: latest
 
-- name: "Install Essentials Packages"
+- name: Instalando Pacotes Padrão
   package:
-    name: "{{ item }}"
-    state: installed
-  loop: "{{ packages.to_install }}"
+    name: "{{ packages.to_install }}"
+    state: latest
 
-- name: "Systemd Enabled"
+- name: Habilitando Serviços Padrão
   systemd:
     name: "{{ item }}"
     state: started
     enabled: true
   loop: "{{ services.to_enable }}"
 
-- name: "Systemd Disabled"
+- name: Desabilitando serviços não essenciais
   systemd:
     name: "{{ item }}"
     state: stopped
     enabled: false
   loop: "{{ services.to_disable }}"
 
-- name: "Selinux Disable"
+- name: Desabilitando o SELinux
   selinux:
     state: disabled
 
-- name: "Configure NTP service"
+- name: Configurando o Serviço NTP
   template:
     src: ntp.conf.j2
     dest: /etc/ntp.conf
@@ -60,6 +35,6 @@
     mode: 0644
   notify: "Restart NTP service"
 
-- name: "Update Host Hostname"
+- name: Atualizando o Hostname dos Servidores
   hostname:
     name: "{{ inventory_hostname }}"
