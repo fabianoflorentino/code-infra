@@ -1,11 +1,11 @@
-# build-vm
-build-vm/.terraform
-build-vm/*.tfstate
-build-vm/*.tfstate.backup
-build-vm/*.tfplan
+# virtual_machine
+virtual_machine/.terraform
+virtual_machine/*.tfstate
+virtual_machine/*.tfstate.backup
+virtual_machine/*.tfplan
 
-# build-k8s-cluster
-build-k8s-cluster/.terraform
-build-k8s-cluster/*.tfstate
-build-k8s-cluster/*.tfstate.backup
-build-k8s-cluster/*.tfplan
+# kubernetes
+kubernetes/.terraform
+kubernetes/*.tfstate
+kubernetes/*.tfstate.backup
+kubernetes/*.tfplan

@@ -1,8 +1,8 @@
 ---
 
-- name: "Build a new virtual machine on-premise infraestructure"
+- name: "Nova maquina virtual"
   hosts:
-    - all
+    - servers
   gather_facts: False
   pre_tasks:
    - setup:

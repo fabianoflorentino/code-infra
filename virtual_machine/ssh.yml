@@ -1,8 +1,8 @@
 ---
 
-- name: "Configure the SSH Key to secure access on server"
+- name: "Configurando SSH para os novos servidores virtuais"
   hosts:
-    - all
+    - servers
     
   roles:
     - {role: ssh, tags: "ssh"}
