@@ -11,6 +11,5 @@
        - '!any'
        - 'network'
        - 'virtual'
-
   roles:
     - {role: common, tags: "common"}
