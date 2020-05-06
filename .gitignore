@@ -9,3 +9,4 @@ kubernetes/.terraform
 kubernetes/*.tfstate
 kubernetes/*.tfstate.backup
 kubernetes/*.tfplan
+infrastructure/terraform/.terraform/*
