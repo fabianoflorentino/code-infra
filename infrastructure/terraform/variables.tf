@@ -4,7 +4,6 @@ variable "provider_address" {
 
 }
 
-
 variable "provider_user" {
 
   default = "$TF_VAR_provider_user"
