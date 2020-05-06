@@ -1,12 +1,3 @@
-# virtual_machine
-virtual_machine/.terraform
-virtual_machine/*.tfstate
-virtual_machine/*.tfstate.backup
-virtual_machine/*.tfplan
-
-# kubernetes
-kubernetes/.terraform
-kubernetes/*.tfstate
-kubernetes/*.tfstate.backup
-kubernetes/*.tfplan
 infrastructure/terraform/.terraform/*
+infrastructure/terraform/*.tfplan
+infrastructure/terraform/*.tfstate*
