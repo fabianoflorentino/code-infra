@@ -14,14 +14,15 @@ DOCKER_IMAGE_NONE=$(docker images | grep "^<none>" |cut -d" " -f50)
 
 # Informacoes sobre as opções do script
 INFO_1="
---help    - Mostra estas opcoes
+--help          - Mostra estas opcoes
 
---build   - Cria uma nova imagem de container
---run     - Executa o container
---delete  - Remove o container
+--build         - Cria uma nova imagem de container
+--run           - Executa o container
+--rm-container  - Remove o container
+--rm-image      - Remove a imagem
 
---list    - Lista as imagens no Docker
---clean   - Remove imagens sem Nome/Tag <NONE>
+--list          - Lista as imagens no Docker
+--clean         - Remove imagens sem Nome/Tag <NONE>
 "
 
 INFO_2="
@@ -66,8 +67,11 @@ function dck() {
             -v ${PWD}:${DOCKER_WORKDIR} -w ${DOCKER_WORKDIR} \
             --entrypoint "" "${IMAGE_NAME}" sh
             ;;
-        --delete)
+        --rm-container)
             docker container rm -f ${CONTAINER_NAME}
+            ;;
+        --rm-image)
+            docker image rm -f ${IMAGE_NAME}
             ;;
         --list)
             docker image ls
