@@ -14,18 +14,14 @@ DOCKER_IMAGE_NONE=$(docker images | grep "^<none>" |cut -d" " -f50)
 
 # Informacoes sobre as opções do script
 INFO_1="
---help              - Mostra as opcoes
+--help    - Mostra estas opcoes
 
---build-terraform   - Cria uma nova imagem de container terraform
---run-terraform     - Executa o container do terraform
---delete-terraform  - Remove o container do terraform
+--build   - Cria uma nova imagem de container
+--run     - Executa o container
+--delete  - Remove o container
 
---build-ansible     - Cria uma nova imagem de container ansible
---run-ansible       - Executa o container do ansible
---delete-ansible    - Remove o container do ansible
-
---list              - Lista as imagens no Docker
---clean             - Remove imagens sem Nome/Tag <NONE>
+--list    - Lista as imagens no Docker
+--clean   - Remove imagens sem Nome/Tag <NONE>
 "
 
 INFO_2="
