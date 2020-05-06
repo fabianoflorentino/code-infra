@@ -36,6 +36,26 @@ Selecione uma ferramenta:
 
 "
 
+# Informacoes para a ferramenta Terraform
+function terraform_info() {
+    
+    # Variaveis para o Terraform
+    IMAGE_NAME="servicesascode/infrastructure:terraform"
+    CONTAINER_NAME="terraform"
+    DOCKER_FILE="terraform.Dockerfile"
+
+}
+
+# Informacoes para a ferramenta Ansible
+function ansible_info() {
+    
+    # Variaveis para o Ansible
+    IMAGE_NAME="servicesascode/infrastructure:ansible"
+    CONTAINER_NAME="ansible"
+    DOCKER_FILE="ansible.Dockerfile"
+
+}
+
 # Comandos para manipulacao do Docker
 function dck() {
 
@@ -69,27 +89,6 @@ function dck() {
     esac
 
 }
-
-# Informacoes para a ferramenta Terraform
-function terraform_info() {
-    
-    # Variaveis para o Terraform
-    IMAGE_NAME="servicesascode/infrastructure:terraform"
-    CONTAINER_NAME="terraform"
-    DOCKER_FILE="terraform.Dockerfile"
-
-}
-
-# Informacoes para a ferramenta Ansible
-function ansible_info() {
-    
-    # Variaveis para o Ansible
-    IMAGE_NAME="servicesascode/infrastructure:ansible"
-    CONTAINER_NAME="ansible"
-    DOCKER_FILE="ansible.Dockerfile"
-
-}
-
 
 if [ "${ARG_1}" == "terraform" ]; then
 
