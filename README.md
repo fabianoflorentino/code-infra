@@ -26,7 +26,7 @@ Instalação e configuração de serviços de infraestrutura com Terraform e Ans
   - **Sample**  
     Módulo para para criar máquina virtual no VMWare/vSphere
     - **Uso - Sample**  
-    Crie um módulo para provisionar as máquinas virtuais no ambiente a partir do módulo **```sample```**
+    Crie um módulo para provisionar as máquinas virtuais no ambiente a partir do módulo **```sample```**  
 
     ```shell
     cd ./infrastructure/terraform/modules
