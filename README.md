@@ -40,7 +40,7 @@ Instalação e configuração de serviços de infraestrutura com Terraform e Ans
     cp -rf sample kubernetes
     ```
 
-No arquivo [**modules.tf**](./modules.tf) preencha com as informações da sua infraestrutura.
+No arquivo [**modules.tf**](./infrastructure/terraform/modules.tf) preencha com as informações da sua infraestrutura.
 
 Ex.
 
