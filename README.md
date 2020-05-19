@@ -92,7 +92,7 @@ Instalação e configuração de serviços de infraestrutura com Terraform e Ans
     kubernetes-master ansible_host=1.2.3.4 ip=1.2.3.4
     ```
 
-    no arquivo **servers.yml** dentro do seu inventário **./infrastructure/ansible/inventorie/<SEU INVENTARIO>/group_vars/servers.yml** configure a chave ssh que o ansible irá usar para executar os playbooks
+    no arquivo **servers.yml** dentro do seu inventário **./infrastructure/ansible/inventorie/\<SEU INVENTARIO\>/group_vars/servers.yml** configure a chave ssh que o ansible irá usar para executar os playbooks
 
     ```yaml
     ssh_key:
