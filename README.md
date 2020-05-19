@@ -110,21 +110,21 @@ Instalação e configuração de serviços de infraestrutura com Terraform e Ans
 
     Para usar o ansible contra seu inventário execute.
 
+    Temos 2 roles basicas para a infraestrutura que esta sendo montada.
+    - [x] ssh
+      - Configura a chave SSH do usário que está rodando o ansible
+    - [x] common
+      - Configura o basico para os servidores.
+        - [x] Atualização do Sistema Operacional
+        - [x] Instalando Pacotes Padrão
+        - [x] Habilitando Serviços Padrão
+        - [x] Desabilitando serviços não essenciais
+        - [x] Desabilitando o SELinux
+        - [x] Configurando o Serviço NTP
+        - [x] Atualizando o Hostname dos Servidores
+
     ```shell
     cd ./infrastructure/ansible
 
     ansible-playbook -i inventorie/<SEU INVENTARIO>/inventory.ini -u root -k playbook.yml
     ```
-
-    - Temos 2 roles basicas para a infraestrutura que esta sendo montada.
-      - [x] ssh
-        - Configura a chave SSH do usário que está rodando o ansible
-      - [x] common
-        - Configura o basico para os servidores.
-          - [x] Atualização do Sistema Operacional
-          - [x] Instalando Pacotes Padrão
-          - [x] Habilitando Serviços Padrão
-          - [x] Desabilitando serviços não essenciais
-          - [x] Desabilitando o SELinux
-          - [x] Configurando o Serviço NTP
-          - [x] Atualizando o Hostname dos Servidores
