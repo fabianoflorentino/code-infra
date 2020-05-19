@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 #
-# Script to management docker image and container terraform
+# Script to management docker image and container terraform, ansible
 #
 
 #
@@ -33,11 +33,22 @@ Selecione uma ferramenta:
 
 "
 
+function docker_verify() {
+
+    # Verificar se o Docker esta instalado
+    $(which docker) version > /dev/null
+    if [ $? == 0 ];
+    then
+        DOCKER_VERSION=$(which docker version |grep "Version:" |head -n1 |awk '{ print $2 }')
+    fi
+
+}
+
 # Informacoes para a ferramenta Terraform
 function terraform_info() {
     
     # Variaveis para o Terraform
-    IMAGE_NAME="servicesascode/infrastructure:terraform"
+    IMAGE_NAME="infraascode/infrastructure:terraform"
     CONTAINER_NAME="terraform"
     DOCKER_FILE="terraform.Dockerfile"
 
@@ -47,7 +58,7 @@ function terraform_info() {
 function ansible_info() {
     
     # Variaveis para o Ansible
-    IMAGE_NAME="servicesascode/infrastructure:ansible"
+    IMAGE_NAME="infraascode/infrastructure:ansible"
     CONTAINER_NAME="ansible"
     DOCKER_FILE="ansible.Dockerfile"
 
@@ -90,18 +101,26 @@ function dck() {
 
 }
 
-if [ "${ARG_1}" == "terraform" ]; then
+docker_verify
 
-    terraform_info
-    dck
+if [ -z ${DOCKER_VERSION} ];
+then
 
-elif [ "${ARG_1}" == "ansible" ]; then
+    if [ "${ARG_1}" == "terraform" ]; then
+        
+        terraform_info
+        dck
 
-    ansible_info
-    dck
+    elif [ "${ARG_1}" == "ansible" ]; then
 
+        ansible_info
+        dck
+
+    else
+
+        echo -e "${INFO_2}"
+
+    fi
 else
-
-    echo -e "${INFO_2}"
-
+    echo -e "\nDocker nao encontrado, por favor instale antes de continuar.\n"
 fi
