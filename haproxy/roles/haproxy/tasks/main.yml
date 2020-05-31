@@ -1,5 +1,4 @@
 ---
-
 - name: "Install Packages"
   yum:
     name: "{{ item }}"
@@ -36,3 +35,13 @@
   loop:
     - haproxy
     - keepalived
+
+- name: Ajustando Hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Atualizando o arquivo /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ hostvars[item]['ansible_host'] }}  {{ hostvars[item]['ansible_hostname'] }}"
+  loop: "{{ groups['haproxy'] }}"

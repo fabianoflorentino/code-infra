@@ -37,11 +37,3 @@ my_domain: ""
 #       "hostname_2": "172.16.0.1",
 #       "hostname_3": "192.168.0.1"
 #     }
-new_app:
-  <APP NAME>:
-    name: "<APP NAME>"
-    port_front: <APP PORT FRONTEND>
-    port_back: <APP PORT BACKEND>
-    backend: {
-      "<HOSTNAME BACKEND>": "<IP BACKEND>"
-    }
