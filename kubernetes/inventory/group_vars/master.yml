@@ -1,7 +1,0 @@
----
-# Confifure the network for POD's network. Ex: 192.168.0.0/16
-pod_network_cidr: ""
-
-# Weavenet Network Plugin
-weavenet_network: true
-default_kubernetes_cni_weavenet_manifestUrl: "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"

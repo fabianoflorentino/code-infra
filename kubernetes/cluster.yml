@@ -1,22 +1,43 @@
 ---
+- name: Kubernetes Master
+  hosts:
+    - masters
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: common, tags: 'common'}
+    - {role: master,  tags: 'master'}
 
-- name: "Configure k8s master hosts"
+- name: Kubernetes Workers
+  hosts:
+    - workers
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: common, tags: 'common'}
+    - {role: worker, tags: 'worker'}
+
+
+- name: Adicionando Label nos Node Workers
   hosts:
     - master
-    
-  roles:
-    - {role: master, tags: "master"}
-
-- name: "Configure k8s worker hosts"
-  hosts:
-    - worker
-    
-  roles:
-    - {role: worker, tags: "worker"}
-
-- name: Deploy Kubernetes with Containerd - Configuration Cluster
-  hosts:
-    - master
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
   tasks:
     - name: Label node to Worker
       shell: >
@@ -24,4 +45,4 @@
       args:
         executable: /bin/bash
       register: label_node
-      with_inventory_hostnames: worker
+      with_inventory_hostnames: workers
