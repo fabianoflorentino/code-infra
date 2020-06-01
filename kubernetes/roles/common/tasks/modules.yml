@@ -1,9 +1,0 @@
----
-
-- name: Setup load modules
-  copy:
-    src: k8s_modules.conf
-    dest: /etc/modules-load.d/k8s.conf
-    owner: root
-    group: root
-    mode: 0644

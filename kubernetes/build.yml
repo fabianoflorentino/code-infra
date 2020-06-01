@@ -1,8 +1,0 @@
----
-
-- name: "Build a new virtual machine on-premise infraestructure"
-  hosts:
-    - all
-
-  roles:
-    - {role: common, tags: "common"}
