@@ -1,8 +1,6 @@
 # Infra as Code
 
-## **Descrição**
-
-Instalação e configuração de serviços de infraestrutura com Terraform e Ansible.
+**Descrição:** Instalação e configuração de serviços de infraestrutura com Terraform e Ansible.
 
 ### **Infraestrutura de serviços**
 
