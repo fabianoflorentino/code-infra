@@ -1,0 +1,6 @@
+all:
+  vars:
+  hosts:
+  children:
+    servers:
+      hosts:

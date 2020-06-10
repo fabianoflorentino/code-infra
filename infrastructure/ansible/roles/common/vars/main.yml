@@ -1,9 +1,4 @@
 ---
-
-ssh_key: 
-  # SSH Information: ~${USER}/.ssh/id_rsa.pub
-  - ""
-
 packages:
   to_install:
     - epel-release
