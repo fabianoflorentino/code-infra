@@ -1,4 +1,17 @@
 ---
+- name: Preparando os Servidores
+  hosts:
+    - all
+  pre_tasks:
+   - setup:
+      gather_subset:
+       - '!all'
+       - '!any'
+       - 'network'
+       - 'virtual'
+  roles:
+    - {role: common, tags: 'common'}
+
 - name: Kubernetes Master
   hosts:
     - masters
@@ -10,8 +23,7 @@
        - 'network'
        - 'virtual'
   roles:
-    - {role: common, tags: 'common'}
-    - {role: master,  tags: 'master'}
+    - {role: master,        tags: 'master'}
 
 - name: Kubernetes Workers
   hosts:
@@ -24,13 +36,11 @@
        - 'network'
        - 'virtual'
   roles:
-    - {role: common, tags: 'common'}
     - {role: worker, tags: 'worker'}
 
-
-- name: Adicionando Label nos Node Workers
+- name: Extendendo o Cluster
   hosts:
-    - master
+    - masters
   pre_tasks:
    - setup:
       gather_subset:
@@ -46,3 +56,6 @@
         executable: /bin/bash
       register: label_node
       with_inventory_hostnames: workers
+  roles:
+    - {role: metric_server, tags: 'metric_server'}
+    - {role: helm, tags: 'helm'}
