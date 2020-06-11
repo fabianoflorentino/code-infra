@@ -1,0 +1,42 @@
+---
+
+- name: Configurando a URL do Repositorio no /etc/hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "{{ ip_repo }} {{ dns_repo }}"
+
+- name: Habilitando o Repositório Local - Base
+  yum_repository:
+    name: base-local
+    description: CentOS Repo Local - Base
+    baseurl: "http://{{ dns_repo }}/base/"
+    gpgcheck: no
+    enabled: yes
+    file: base-local
+
+- name: Habilitando o Repositório Local - CentOSPlus
+  yum_repository:
+    name: centosplus-local
+    description: CentOS Repo Local - CentOS Plus
+    baseurl: "http://{{ dns_repo }}/centosplus/"
+    gpgcheck: no
+    enabled: yes
+    file: centosplus-local
+
+- name: Habilitando o Repositório Local - Extras
+  yum_repository:
+    name: extras-local
+    description: CentOS Repo Local - Extras
+    baseurl: "http://{{ dns_repo }}/extras/"
+    gpgcheck: no
+    enabled: yes
+    file: extras-local
+
+- name: Habilitando o Repositório Local - Updates
+  yum_repository:
+    name: updates-local
+    description: CentOS Repo Local - Updates
+    baseurl: "http://{{ dns_repo }}/updates/"
+    gpgcheck: no
+    enabled: yes
+    file: updates-local

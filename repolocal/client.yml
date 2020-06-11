@@ -1,0 +1,15 @@
+---
+
+- name: Repositorio Local - CentOS 7
+  hosts:
+    - client
+  gather_facts: False
+  pre_tasks:
+    - setup:
+        gather_subset:
+          - '!all'
+          - '!any'
+          - 'network'
+          - 'virtual'
+  roles:
+    - {role: config, tags: config}

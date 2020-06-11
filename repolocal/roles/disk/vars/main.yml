@@ -1,0 +1,19 @@
+---
+
+device: "/dev/sdb"
+dev_size: "30g"
+vg_name: "repo"
+lv_name: "data"
+logical_device: "/dev/repo/data"
+dir_mount:
+  - "/var/www/html"
+  - "/var/www/html/repos"
+path_mount: "/var/www/html/repos"
+
+
+# pvcreate /dev/sdb
+# vgcreate data /dev/sdb
+# lvcreate -n ibm -L 25G data
+# mkfs.ext4 /dev/data/ibm
+# mkdir /ibm
+# mount /dev/data/ibm /ibm/
