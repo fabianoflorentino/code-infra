@@ -1,0 +1,44 @@
+---
+- name: "Enable LVM 2"
+  yum:
+    name: lvm2
+    state: latest
+
+- name: "Create new Volume Group"
+  lvg:
+    vg: "{{ vg_name }}"
+    pvs:
+      - "{{ device }}"
+    pesize: 32M
+
+- name: "Create new Logical Volume"
+  lvol:
+    vg: "{{ vg_name }}"
+    lv: "{{ lv_name }}"
+    resizefs: yes
+    active: yes
+    size: "{{ dev_size }}"
+    pvs: "{{ device }}"
+
+- name: "Create a filesystem"
+  filesystem:
+    fstype: xfs
+    dev: "{{ logical_device }}"
+
+- name: "Directory to mount"
+  file:
+    state: directory
+    path: "{{ item }}"
+    owner: root
+    group: root
+  loop: "{{ dir_mount }}"
+
+- name: "Mount new directory"
+  mount:
+    state: mounted
+    path: "{{ path_mount }}"
+    src: "{{ logical_device }}"
+    fstype: xfs
+    boot: yes
+    backup: yes
+    opts: defaults

@@ -1,0 +1,5 @@
+---
+- name: "Reload Webserver"
+  systemd:
+    name: nginx
+    state: restarted

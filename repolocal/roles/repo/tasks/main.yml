@@ -1,0 +1,86 @@
+---
+
+- name: Instalando Webserver
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - epel-release
+    - nginx
+    - yum-utils
+    - createrepo
+
+- name: Habilitando o Serviço Web
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - nginx
+
+- name: Diretorios para o Repositorio
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0744
+    owner: nginx
+    group: nginx
+  loop:
+    - /var/www/html/repos
+    - /var/www/html/repos/base
+    - /var/www/html/repos/centosplus
+    - /var/www/html/repos/extras
+    - /var/www/html/repos/updates
+
+- name: Copiando arquivo comps.xml
+  copy:
+    src: comps.xml
+    dest: "{{ item }}/comps.xml"
+    mode: 0744
+    owner: nginx
+    group: nginx
+  loop:
+    - /var/www/html/repos
+    - /var/www/html/repos/base
+    - /var/www/html/repos/centosplus
+    - /var/www/html/repos/extras
+    - /var/www/html/repos/updates
+
+- name: Sincronizando Repositorio
+  shell: |
+    reposync -g -l -d -m --repoid=base --newest-only --download-metadata --download_path=/var/www/html/repos/
+    reposync -g -l -d -m --repoid=centosplus --newest-only --download-metadata --download_path=/var/www/html/repos/
+    reposync -g -l -d -m --repoid=extras --newest-only --download-metadata --download_path=/var/www/html/repos/
+    reposync -g -l -d -m --repoid=updates --newest-only --download-metadata --download_path=/var/www/html/repos/
+  args:
+    executable: /bin/bash
+    creates: /tmp/reposync.out
+  register: reposync_status
+
+- name: Criando Repositorios
+  shell: |
+    createrepo -g comps.xml /var/www/html/repos/base/
+    createrepo -g comps.xml /var/www/html/repos/centosplus/
+    createrepo -g comps.xml /var/www/html/repos/extras/
+    createrepo -g comps.xml /var/www/html/repos/updates/
+  args:
+    executable: /bin/bash
+    creates: /tmp/createrepo.out
+  register: createrepo_status
+
+- name: Configurando Repositorio no Webserver
+  copy:
+    src: repos.conf
+    dest: /etc/nginx/conf.d/repos.conf
+    mode: 0644
+    owner: root
+    group: root
+  notify: "Reload Webserver"
+
+- name: Tarefa de atualização do repositorio
+  copy:
+    src: update-localrepos
+    dest: /etc/cron.daily/
+    mode: 0744
+    owner: root
+    group: root
